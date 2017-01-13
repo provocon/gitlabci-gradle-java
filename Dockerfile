@@ -1,21 +1,27 @@
-FROM openjdk:8-jdk
+FROM openjdk:8-jdk-alpine
 
 VOLUME /data/services
 
 ADD ./run.sh /run.sh
+ADD ./gitlab-runner-init.sh /etc/init.d/gitlab-runner
+ADD ./config.toml /etc/gitlab-runner/config.toml
 
 # Gradle
 WORKDIR /opt
-RUN wget https://services.gradle.org/distributions/gradle-3.3-bin.zip
-RUN unzip gradle-3.3-bin.zip
+RUN wget http://services.gradle.org/distributions/gradle-3.3-bin.zip
+RUN unzip -q gradle-3.3-bin.zip
 RUN ln -s gradle-3.3 gradle && rm gradle-3.3-bin.zip
 ENV GRADLE_HOME=/opt/gradle
 ENV PATH=$PATH:$GRADLE_HOME/bin
 RUN chmod 777 $GRADLE_HOME/bin/gradle
 
 # GitLab CI Runner
-RUN wget -O /usr/local/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-ci-multi-runner-linux-amd64
+RUN apk update
+RUN apk add libstdc++
+RUN wget -O /usr/local/bin/gitlab-ci-multi-runner http://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-ci-multi-runner-linux-amd64
 RUN chmod +x /usr/local/bin/gitlab-ci-multi-runner
-RUN gitlab-ci-multi-runner install --user=root --working-directory=/data/services
+# RUN ln -s /etc/init.d/gitlab-runner /etc/runlevels/default/gitlab-runner
+# RUN ln -s /etc/init.d/gitlab-runner /etc/runlevels/shutdown/gitlab-runner
+# RUN gitlab-ci-multi-runner install --user=root --working-directory=/data/services
 
-CMD ["/bin/bash","/run.sh"]
+CMD ["/bin/sh","/run.sh"]
