@@ -30,6 +30,16 @@ build_modules:
   - gradle build
 ```
 
+## Building
+
+```
+docker build -t provocon/gitlabci-gradle-java:3.5.1:latest .
+docker build -t provocon/gitlabci-gradle-java:latest .
+docker build -t provocon/gitlabci-gradle-java:3.5.1 .
+docker push provocon/gitlabci-gradle-java:3.5.1
+docker push provocon/gitlabci-gradle-java:latest
+```
+
 ## Notes
  
 Inspired by https://github.com/dominikhastrich/docker-java-gitlab-cd

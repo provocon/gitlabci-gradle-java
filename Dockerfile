@@ -8,9 +8,9 @@ ADD ./config.toml /etc/gitlab-runner/config.toml
 
 # Gradle
 WORKDIR /opt
-RUN wget http://services.gradle.org/distributions/gradle-3.5-bin.zip && \
-    unzip -q gradle-3.5-bin.zip && \
-    ln -s gradle-3.5 gradle && rm gradle-3.5-bin.zip
+RUN wget http://services.gradle.org/distributions/gradle-3.5.1-bin.zip && \
+    unzip -q gradle-3.5.1-bin.zip && \
+    ln -s gradle-3.5.1 gradle && rm gradle-3.5.1-bin.zip
 ENV GRADLE_HOME=/opt/gradle
 ENV PATH=$PATH:$GRADLE_HOME/bin
 RUN chmod 777 $GRADLE_HOME/bin/gradle
