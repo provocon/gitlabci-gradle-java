@@ -33,10 +33,10 @@ build_modules:
 ## Building
 
 ```
-docker build -t provocon/gitlabci-gradle-java:3.5.1:latest .
+docker build -t provocon/gitlabci-gradle-java:4.0:latest .
 docker build -t provocon/gitlabci-gradle-java:latest .
-docker build -t provocon/gitlabci-gradle-java:3.5.1 .
-docker push provocon/gitlabci-gradle-java:3.5.1
+docker build -t provocon/gitlabci-gradle-java:4.0 .
+docker push provocon/gitlabci-gradle-java:4.0
 docker push provocon/gitlabci-gradle-java:latest
 ```
 
